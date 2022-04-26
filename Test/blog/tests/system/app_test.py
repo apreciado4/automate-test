@@ -4,12 +4,14 @@ import app
 from blog import Blog
 from post import Post
 
+
 class AppTest(TestCase):
+    # setUp replaces redundant creation of blogs for each test
     def setUp(self):
         blog = Blog('Test', 'Test Author')
         app.blogs = {'Test': blog}
 
-    @patch('builtins.input', side_effect =('c', 'Test', 'Test Author', 'q'))
+    @patch('builtins.input', side_effect=('c', 'Test', 'Test Author', 'q'))
     def test_menu_calls_create_blog(self, mock_input):
         app.menu()
 
@@ -20,8 +22,9 @@ class AppTest(TestCase):
     @patch('builtins.input', return_value='q')
     def test_menu_prints_prompt(self, mocked_input):
         app.menu()
-        mocked_input.assert_called_with('Enter "c" to create a blog, "l" to list blogs, "r" to read one, '
-                                        '"p" to create a post, or "q" to quit: ')
+        mocked_input.assert_called_with(app.MENU_PROMPT)
+        # mocked_input.assert_called_with('Enter "c" to create a blog, "l" to list blogs, "r" to read one, '
+        #                                 '"p" to create a post, or "q" to quit: ')
 
     def test_menu_calls_print_blogs(self):
         with patch('app.print_blogs') as mock_print_blogs:
@@ -85,6 +88,7 @@ class AppTest(TestCase):
 
         mock_print_posts.assert_called_with(blog)
 
+    # Print Post - Blog
     @patch('app.print_post')
     def test_print_posts(self, mock_print_post):
         # blog = Blog('Test', 'Test Author')
@@ -94,18 +98,20 @@ class AppTest(TestCase):
 
         mock_print_post.assert_called_with(blog.posts[0])
 
+    # Print Post - Post
     @patch('builtins.print')
     def test_print_post(self, mock_print):
         post = Post('Post title', 'Post content')
         app.print_post(post)
-        expected = '''
-        --- Post title ---
-        
-        Post content
-        '''
+        expected = app.POST_TEMPLATE.format('Post title', 'Post content')
+        # expected = '''
+        # --- Post title ---
+        #
+        # Post content
+        # '''
         mock_print.assert_called_with(expected)
 
-    @patch('builtins.input', side_effect = ('Test', 'Test Title', 'Test Content'))
+    @patch('builtins.input', side_effect=('Test', 'Test Title', 'Test Content'))
     def test_ask_create_post(self, mock_input):
         # blog = Blog('Test', 'Test Author')
         # app.blogs = {'Test': blog}

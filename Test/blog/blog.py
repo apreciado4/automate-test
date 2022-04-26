@@ -9,7 +9,7 @@ class Blog:
 
     def __repr__(self):
         plural = 's' if len(self.posts) != 1 else ''
-        return f'<{self.title} by {self.author} ({len(self.posts)}post{plural})>'
+        return f'<{self.title} by {self.author} ({len(self.posts)} post{plural})>'
 
     def create_post(self, title, content):
         p = Post(title, content)

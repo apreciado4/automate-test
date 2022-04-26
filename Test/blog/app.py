@@ -6,6 +6,7 @@ POST_TEMPLATE = '''
         
         {}
         '''
+
 blogs = dict()  # blog_name : Blog object
 
 
