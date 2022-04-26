@@ -1,11 +1,11 @@
-from test.system.test_base import BaseTest
+from test_base import BaseTest
 import json
 
 
 class TestHome(BaseTest):
     # Do Not Touch
     # def test_home_original(self):
-    #     with app.test_client() as c:
+    #     with app.app.test_client() as c:
     #         resp = c.get('/')
     #
     #         # For all web requests 200 means OK, 404 not found, 500 internal server error
