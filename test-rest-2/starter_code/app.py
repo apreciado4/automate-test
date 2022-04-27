@@ -21,6 +21,11 @@ api.add_resource(ItemList, '/items')
 api.add_resource(StoreList, '/stores')
 
 
+@app.route('/')
+def home():
+    return "Automate Testing Course Test REST API 2"
+
+
 if __name__ == '__main__':
     from db import db
 
