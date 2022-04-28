@@ -12,14 +12,23 @@ from db import db
 
 
 class BaseTest(TestCase):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///'
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        app.config['SQLALCHEMY_DATABASE_URI'] = BaseTest.SQLALCHEMY_DATABASE_URI
+        app.config['DEBUG'] = False
+        with app.app_context():
+            db.init_app()
+
     def setUp(self):
         # Make sure database exists
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'
         with app.app_context():
-            db.init_app(app)
             db.create_all()
         # Get a test client
-        self.app = app.test_client()
+        # self.app = app.test_client()
+        # Creates test_client on each test instead of creating test_client once for each test
+        self.app = app.test_client
         self.app_context = app.app_context
 
     def tearDown(self):

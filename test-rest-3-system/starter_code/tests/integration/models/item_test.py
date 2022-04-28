@@ -1,6 +1,6 @@
 from models.item import ItemModel
 from models.store import StoreModel
-from integration.integration_base_test import BaseTest
+from not_unit_base_test import BaseTest
 
 
 class ItemTest(BaseTest):
