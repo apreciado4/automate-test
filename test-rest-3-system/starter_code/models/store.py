@@ -13,10 +13,7 @@ class StoreModel(db.Model):
         self.name = name
 
     def json(self):
-        # Use for Pytest
         return {'name': self.name, 'items': [item.json() for item in self.items.all()]}
-        # Use for POSTMAN
-        # return {'id': self.id, 'name': self.name, 'items': [item.json() for item in self.items.all()]}
 
     @classmethod
     def find_by_name(cls, name):
