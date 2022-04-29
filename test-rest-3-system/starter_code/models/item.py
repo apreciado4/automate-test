@@ -17,7 +17,10 @@ class ItemModel(db.Model):
         self.store_id = store_id
 
     def json(self):
+        # Use for pytest
         return {'name': self.name, 'price': self.price}
+        # Use for POSTMAN
+        # return {'name': self.name, 'price': self.price, 'id': self.store_id}
 
     @classmethod
     def find_by_name(cls, name):

@@ -30,7 +30,7 @@ class StoreTest(BaseTest):
                 client.post('store/Test_Store', data={'name': 'Test_Store'})
                 response = client.get('store/Test_Store', data={'name': 'Test_Store'})
 
-                self.assertIsNot(response.status_code, 404)
+                self.assertIs(response.status_code, 200)
                 self.assertDictEqual(json.loads(response.data),
                                      {'name': 'Test_Store', 'items': []})
 
